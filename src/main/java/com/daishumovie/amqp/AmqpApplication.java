@@ -18,27 +18,21 @@ public class AmqpApplication {
         SpringApplication.run(AmqpApplication.class, args);
     }
 
-//    private final AmqpAdmin amqpAdmin;
-//    private final AmqpTemplate amqpTemplate;
-//
-//    private final RabbitAdmin rabbitAdmin;
-//    private final RabbitTemplate rabbitTemplate;
-
 
     @Autowired
     public AmqpApplication(AmqpAdmin amqpAdmin, AmqpTemplate amqpTemplate,RabbitTemplate rabbitTemplate,RabbitAdmin rabbitAdmin) {
-//        this.amqpAdmin = amqpAdmin;
-//        this.amqpTemplate = amqpTemplate;
-//        this.rabbitAdmin = rabbitAdmin;
-//        this.rabbitTemplate = rabbitTemplate;
 
 
         Queue queue = QueueBuilder.durable("my-queue-1").build();
+        Queue queue2 = QueueBuilder.durable("my-queue-2").build();
         Exchange exchange = ExchangeBuilder.directExchange("my-exchange-1").build();
         Binding binding = BindingBuilder.bind(queue).to(exchange).with("my-routing-1").noargs();
+        Binding binding2 = BindingBuilder.bind(queue2).to(exchange).with("my-routing-2").noargs();
         rabbitAdmin.declareQueue(queue);
+        rabbitAdmin.declareQueue(queue2);
         rabbitAdmin.declareExchange(exchange);
         rabbitAdmin.declareBinding(binding);
+        rabbitAdmin.declareBinding(binding2);
 
     }
 
