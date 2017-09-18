@@ -1,0 +1,10 @@
+server:
+  port: 8088
+  context-path: /
+
+spring.rabbitmq.host: 192.168.1.200
+spring.rabbitmq.port: 5672
+spring.rabbitmq.username: guest
+spring.rabbitmq.password: guest
+spring.rabbitmq.listener.simple.acknowledge-mode: 1 # Acknowledge mode of container.
+spring.rabbitmq.publisher-confirms: false # Enable publisher confirms.
